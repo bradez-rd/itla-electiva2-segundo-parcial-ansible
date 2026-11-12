@@ -20,4 +20,4 @@ El inventario usa `ansible_connection=docker`. Cada servidor recibe `/tmp/ansibl
 
 ## Evidencia de ejecución
 
-Pendiente: captura de una ejecución exitosa del playbook. El entorno desde el que se preparó esta entrega no dispone de Docker ni de un sistema Linux operativo, así que no se presenta una captura simulada.
+La ejecución completa del laboratorio en GitHub Actions terminó correctamente: [ver ejecución y registro](https://github.com/bradez-rd/itla-electiva2-segundo-parcial-ansible/actions/runs/43133446360). El entorno local no dispone de Docker, por lo que la prueba se realizó en el runner Ubuntu de GitHub. El enlace permite verificar los comandos y la salida real del playbook. No se adjunta una captura de pantalla local.
