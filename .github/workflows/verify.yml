@@ -1,0 +1,26 @@
+name: Verificar laboratorio Ansible
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  laboratorio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Ansible y colección Docker
+        run: |
+          python3 -m pip install --user ansible
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/ansible-galaxy" collection install community.docker
+      - name: Iniciar servidores y Python
+        run: |
+          docker compose up -d
+          docker exec server1 bash -lc 'apt update && apt install -y python3'
+          docker exec server2 bash -lc 'apt update && apt install -y python3'
+      - name: Probar conexión y ejecutar playbook
+        run: |
+          ansible docker -i inventory.ini -m ping
+          ansible-playbook -i inventory.ini playbook.yml
+          docker exec server1 cat /tmp/ansible-demo/info.txt
+          docker exec server2 cat /tmp/ansible-demo/info.txt
